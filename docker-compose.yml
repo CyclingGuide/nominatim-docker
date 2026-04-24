@@ -1,0 +1,86 @@
+version: "3.8"
+
+services:
+  nova_scotia:
+    image: mediagis/nominatim:5.1
+    container_name: nominatim-ns
+    restart: unless-stopped
+    shm_size: "2g"
+    ports:
+      - "18080:8080"
+    environment:
+      PBF_URL: https://download.geofabrik.de/north-america/canada/nova-scotia-latest.osm.pbf
+      REPLICATION_URL: https://download.geofabrik.de/north-america/canada/nova-scotia-updates/
+      UPDATE_MODE: continuous
+    volumes:
+      - /opt/nominatim-data/ns/data:/nominatim/data
+      - /opt/nominatim-data/ns/flatnode:/nominatim/flatnode
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18080/status.php"]
+      interval: 30s
+      timeout: 5s
+      retries: 20
+      start_period: 10m
+
+  ontario:
+    image: mediagis/nominatim:5.1
+    container_name: nominatim-ontario
+    restart: unless-stopped
+    shm_size: "4g"
+    ports:
+      - "18081:8080"
+    environment:
+      PBF_URL: https://download.geofabrik.de/north-america/canada/ontario-latest.osm.pbf
+      REPLICATION_URL: https://download.geofabrik.de/north-america/canada/ontario-updates/
+      UPDATE_MODE: continuous
+    volumes:
+      - /opt/nominatim-data/ont/data:/nominatim/data
+      - /opt/nominatim-data/ont/flatnode:/nominatim/flatnode
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18081/status.php"]
+      interval: 30s
+      timeout: 5s
+      retries: 20
+      start_period: 15m
+
+  saskatchewan:
+    image: mediagis/nominatim:5.1
+    container_name: nominatim-saskatchewan
+    restart: unless-stopped
+    shm_size: "2g"
+    ports:
+      - "18082:8080"
+    environment:
+      PBF_URL: https://download.geofabrik.de/north-america/canada/saskatchewan-latest.osm.pbf
+      REPLICATION_URL: https://download.geofabrik.de/north-america/canada/saskatchewan-updates/
+      UPDATE_MODE: continuous
+    volumes:
+      - /opt/nominatim-data/sk/data:/nominatim/data
+      - /opt/nominatim-data/sk/flatnode:/nominatim/flatnode
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18082/status.php"]
+      interval: 30s
+      timeout: 5s
+      retries: 20
+      start_period: 10m
+
+  alberta:
+    image: mediagis/nominatim:5.1
+    container_name: nominatim-alberta
+    restart: unless-stopped
+    shm_size: "2g"
+    ports:
+      - "18083:8080"
+    environment:
+      PBF_URL: https://download.geofabrik.de/north-america/canada/alberta-latest.osm.pbf
+      REPLICATION_URL: https://download.geofabrik.de/north-america/canada/alberta-updates/
+      UPDATE_MODE: continuous
+    volumes:
+      - /opt/nominatim-data/ab/data:/nominatim/data
+      - /opt/nominatim-data/ab/flatnode:/nominatim/flatnode
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18083/status.php"]
+      interval: 30s
+      timeout: 5s
+      retries: 20
+      start_period: 10m
