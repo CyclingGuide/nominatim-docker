@@ -84,3 +84,24 @@ services:
       timeout: 5s
       retries: 20
       start_period: 10m
+
+  ghana:
+    image: mediagis/nominatim:5.1
+    container_name: nominatim-ghana
+    restart: unless-stopped
+    shm_size: "2g"
+    ports:
+      - "18084:8080"
+    environment:
+      PBF_URL: https://download.geofabrik.de/africa/ghana-latest.osm.pbf
+      REPLICATION_URL: https://download.geofabrik.de/africa/ghana-updates/
+      UPDATE_MODE: continuous
+    volumes:
+      - /opt/nominatim-data/gh/data:/nominatim/data
+      - /opt/nominatim-data/gh/flatnode:/nominatim/flatnode
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18084/status.php"]
+      interval: 30s
+      timeout: 5s
+      retries: 20
+      start_period: 10m
