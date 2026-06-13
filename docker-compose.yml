@@ -12,15 +12,16 @@ services:
       PBF_URL: https://download.geofabrik.de/north-america/canada/nova-scotia-latest.osm.pbf
       REPLICATION_URL: https://download.geofabrik.de/north-america/canada/nova-scotia-updates/
       UPDATE_MODE: continuous
+      NOMINATIM_IMPORT_OSMPGSQL_CACHE: 500
     volumes:
       - /opt/nominatim-data/ns/data:/nominatim/data
       - /opt/nominatim-data/ns/flatnode:/nominatim/flatnode
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18080/status.php"]
-      interval: 30s
-      timeout: 5s
-      retries: 20
-      start_period: 10m
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/status || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20m
 
   ontario:
     image: mediagis/nominatim:5.1
@@ -33,15 +34,16 @@ services:
       PBF_URL: https://download.geofabrik.de/north-america/canada/ontario-latest.osm.pbf
       REPLICATION_URL: https://download.geofabrik.de/north-america/canada/ontario-updates/
       UPDATE_MODE: continuous
+      NOMINATIM_IMPORT_OSMPGSQL_CACHE: 800
     volumes:
       - /opt/nominatim-data/ont/data:/nominatim/data
       - /opt/nominatim-data/ont/flatnode:/nominatim/flatnode
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18081/status.php"]
-      interval: 30s
-      timeout: 5s
-      retries: 20
-      start_period: 15m
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/status || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20m
 
   saskatchewan:
     image: mediagis/nominatim:5.1
@@ -54,15 +56,16 @@ services:
       PBF_URL: https://download.geofabrik.de/north-america/canada/saskatchewan-latest.osm.pbf
       REPLICATION_URL: https://download.geofabrik.de/north-america/canada/saskatchewan-updates/
       UPDATE_MODE: continuous
+      NOMINATIM_IMPORT_OSMPGSQL_CACHE: 500
     volumes:
       - /opt/nominatim-data/sk/data:/nominatim/data
       - /opt/nominatim-data/sk/flatnode:/nominatim/flatnode
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18082/status.php"]
-      interval: 30s
-      timeout: 5s
-      retries: 20
-      start_period: 10m
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/status || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20m
 
   alberta:
     image: mediagis/nominatim:5.1
@@ -75,15 +78,16 @@ services:
       PBF_URL: https://download.geofabrik.de/north-america/canada/alberta-latest.osm.pbf
       REPLICATION_URL: https://download.geofabrik.de/north-america/canada/alberta-updates/
       UPDATE_MODE: continuous
+      NOMINATIM_IMPORT_OSMPGSQL_CACHE: 600
     volumes:
       - /opt/nominatim-data/ab/data:/nominatim/data
       - /opt/nominatim-data/ab/flatnode:/nominatim/flatnode
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18083/status.php"]
-      interval: 30s
-      timeout: 5s
-      retries: 20
-      start_period: 10m
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/status || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20m
 
   ghana:
     image: mediagis/nominatim:5.1
@@ -96,12 +100,13 @@ services:
       PBF_URL: https://download.geofabrik.de/africa/ghana-latest.osm.pbf
       REPLICATION_URL: https://download.geofabrik.de/africa/ghana-updates/
       UPDATE_MODE: continuous
+      NOMINATIM_IMPORT_OSMPGSQL_CACHE: 400
     volumes:
       - /opt/nominatim-data/gh/data:/nominatim/data
       - /opt/nominatim-data/gh/flatnode:/nominatim/flatnode
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:18084/status.php"]
-      interval: 30s
-      timeout: 5s
-      retries: 20
-      start_period: 10m
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/status || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 20m
